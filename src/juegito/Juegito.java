@@ -68,7 +68,7 @@ public class Juegito {
             if (sinTecho < 0) {
                 sinTecho = 0;
             }
-            System.out.println("sin techo: " + sinTecho);
+            System.out.println("sin techo: " + sinTecho + "     descontento: " + descontento);
             System.out.println("edificios de produccion: " + "aserradero ");
             //acciones
             System.out.println("1.construir     2.pasar dia     3.(futura accion)");
@@ -87,6 +87,7 @@ public class Juegito {
                             } else {
                                 System.out.println("recursos insuficientes");
                             }
+                            
                             break;
 
                         case 2:
@@ -107,11 +108,19 @@ public class Juegito {
                     }
                     break;
                 case 2:
-                    System.out.println("seguro que quieres omitir el dia? Y/N");
+                    System.out.println("pasar dia? Y/N");
                     sc.nextLine();
                     String pass = sc.nextLine();
                     if (pass.equalsIgnoreCase("y")) {
                         dia++;
+                        if (sinTecho > 0){
+                        descontento = descontento +((sinTecho/10) *5);
+                        }else{
+                            descontento = descontento -5;
+                        }
+                        if(descontento < -1){
+                            descontento = 0;
+                        }
                     }
                     break;
                 case 3:
