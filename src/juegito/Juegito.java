@@ -33,7 +33,7 @@ public class Juegito {
 
         //menu dificultad
         System.out.println(" dificultad");
-        System.out.println("1.facil 2.normal 3.medio");
+        System.out.println("1.facil 2.normal 3.dificil");
         resp = sc.nextInt();
         switch (resp) {
             case 1:
@@ -49,7 +49,7 @@ public class Juegito {
                 descontento = 50;
                 break;
             case 3:
-                madera = 20;
+                madera = 25;
                 carbon = 0;
                 hierro = 20;
                 descontento = 75;
@@ -95,6 +95,13 @@ public class Juegito {
                             resp = sc.nextInt();
                             switch (resp) {
                                 case 1:
+                                    if (madera >=10 && hierro >=20) {
+                                        aserradero++;
+                                        madera = madera -10;
+                                        hierro = hierro - 20;
+                                    }else{
+                                        System.out.println("recursos insuficientes");
+                                    }
                                     break;
                                 case 2:
                                     break;
@@ -113,11 +120,17 @@ public class Juegito {
                     String pass = sc.nextLine();
                     if (pass.equalsIgnoreCase("y")) {
                         dia++;
+                        madera = madera + (aserradero * 10);
+                        
                         if (sinTecho > 0){
                         descontento = descontento +((sinTecho/10) *5);
                         }else{
                             descontento = descontento -5;
                         }
+                        
+                        
+                        
+                        
                         if(descontento < -1){
                             descontento = 0;
                         }
