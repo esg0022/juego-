@@ -31,7 +31,7 @@ public class Juegito {
         int dia = 1;
         int nivelTemperatura;
         //menu dificultad
-        System.out.println(" dificultad");
+        System.out.println(" <-----dificultad----->");
         System.out.println("1.facil 2.normal 3.dificil");
         resp = sc.nextInt();
         switch (resp) {
@@ -55,30 +55,35 @@ public class Juegito {
                 break;
             default:
                 break;
+                
+                
             //juego
         }
         do {
             System.out.println("");
             System.out.println("");
 
-            System.out.println("dia: " + dia);
+            System.out.println("                <------------------dia " + dia +"------------------>");
             System.out.println("poblacion: " + poblacion + "   casas: " + casa + "     madera: " + madera + "      hierro: " + hierro + "      carbon: " + carbon);
             int sinTecho = poblacion - (10 * casa);
             if (sinTecho < 0) {
                 sinTecho = 0;
             }
+            System.out.println("");
             System.out.println("sin techo: " + sinTecho + "     descontento: " + descontento);
             System.out.println("edificios de produccion: ");
             System.out.println("    aserradero: " + aserradero);
             System.out.println("    mina: " + mina);
             System.out.println("    fundicion: " + fundicion);
+            
             //acciones
+            System.out.println("        <----------acciones---------->");
             System.out.println("1.construir     2.pasar dia     3.(futura accion)");
             resp = sc.nextInt();
 
             switch (resp) {
                 case 1:
-                    System.out.println("1. casa 2.edificio de produccion 3.retroceder");
+                    System.out.println("1. casa     2.edificio de produccion    3.retroceder");
                     resp = sc.nextInt();
                     switch (resp) {
                         case 1:
@@ -92,8 +97,8 @@ public class Juegito {
 
                             break;
 
-                        case 2:
-                            System.out.println("1.madera 2.hierro 3.carbon 4.retroceder");
+                        case 2: //sistema de construcción
+                            System.out.println("1.madera    2.hierro    3.carbon    4.retroceder");
                             resp = sc.nextInt();
                             switch (resp) {
                                 case 1: //aserradero
