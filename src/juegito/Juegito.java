@@ -25,12 +25,11 @@ public class Juegito {
         //recursos
         int madera = 0, carbon = 0, hierro = 0;
         int aserradero = 0, mina = 0, fundicion = 0;
-        
 
         //medidores 
         int descontento = 0;
         int dia = 1;
-
+        int nivelTemperatura;
         //menu dificultad
         System.out.println(" dificultad");
         System.out.println("1.facil 2.normal 3.dificil");
@@ -69,11 +68,14 @@ public class Juegito {
                 sinTecho = 0;
             }
             System.out.println("sin techo: " + sinTecho + "     descontento: " + descontento);
-            System.out.println("edificios de produccion: " + "aserradero ");
+            System.out.println("edificios de produccion: ");
+            System.out.println("    aserradero: " + aserradero);
+            System.out.println("    mina: " + mina);
+            System.out.println("    fundicion: " + fundicion);
             //acciones
             System.out.println("1.construir     2.pasar dia     3.(futura accion)");
             resp = sc.nextInt();
-            
+
             switch (resp) {
                 case 1:
                     System.out.println("1. casa 2.edificio de produccion 3.retroceder");
@@ -87,7 +89,7 @@ public class Juegito {
                             } else {
                                 System.out.println("recursos insuficientes");
                             }
-                            
+
                             break;
 
                         case 2:
@@ -95,17 +97,31 @@ public class Juegito {
                             resp = sc.nextInt();
                             switch (resp) {
                                 case 1:
-                                    if (madera >=10 && hierro >=20) {
+                                    if (madera >= 10 && hierro >= 20) {
                                         aserradero++;
-                                        madera = madera -10;
+                                        madera = madera - 10;
                                         hierro = hierro - 20;
-                                    }else{
+                                    } else {
                                         System.out.println("recursos insuficientes");
                                     }
                                     break;
                                 case 2:
+                                    if (madera >= 20 && hierro >= 10) {
+                                        fundicion++;
+                                        madera = madera - 20;
+                                        hierro = hierro - 10;
+                                    } else {
+                                        System.out.println("Recursos insuficientes");
+                                    }
                                     break;
                                 case 3:
+                                    if (madera >= 20 && hierro >= 20) {
+                                        mina++;
+                                        madera = madera - 20;
+                                        hierro = hierro - 20;
+                                    } else {
+                                        System.out.println("Recursos insuficientes");
+                                    }
                                     break;
                                 case 4:
                                     break;
@@ -121,17 +137,20 @@ public class Juegito {
                     if (pass.equalsIgnoreCase("y")) {
                         dia++;
                         madera = madera + (aserradero * 10);
+                        hierro = hierro + (fundicion * 5);
+                        carbon = carbon + (mina * 20);
                         
-                        if (sinTecho > 0){
-                        descontento = descontento +((sinTecho/10) *5);
-                        }else{
-                            descontento = descontento -5;
+                        
+                        
+                        
+                        
+                        //sistema de descontento 
+                        if (sinTecho > 0) {
+                            descontento = descontento + ((sinTecho / 10) * 5);
+                        } else {
+                            descontento = descontento - 5;
                         }
-                        
-                        
-                        
-                        
-                        if(descontento < -1){
+                        if (descontento < -1) {
                             descontento = 0;
                         }
                     }
