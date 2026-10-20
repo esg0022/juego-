@@ -96,7 +96,7 @@ public class Juegito {
                             System.out.println("1.madera 2.hierro 3.carbon 4.retroceder");
                             resp = sc.nextInt();
                             switch (resp) {
-                                case 1:
+                                case 1: //aserradero
                                     if (madera >= 10 && hierro >= 20) {
                                         aserradero++;
                                         madera = madera - 10;
@@ -105,7 +105,7 @@ public class Juegito {
                                         System.out.println("recursos insuficientes");
                                     }
                                     break;
-                                case 2:
+                                case 2: //fundicion
                                     if (madera >= 20 && hierro >= 10) {
                                         fundicion++;
                                         madera = madera - 20;
@@ -114,7 +114,7 @@ public class Juegito {
                                         System.out.println("Recursos insuficientes");
                                     }
                                     break;
-                                case 3:
+                                case 3: //mina
                                     if (madera >= 20 && hierro >= 20) {
                                         mina++;
                                         madera = madera - 20;
