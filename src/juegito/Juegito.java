@@ -29,7 +29,12 @@ public class Juegito {
         //medidores 
         int descontento = 0;
         int dia = 1;
-        int nivelTemperatura;
+
+        //sistema de temperatura
+        int nivelTemperatura = 0;
+        int contadorTemperatura = 0;
+        int limiteTemp = 3 + (int) (Math.random() * 3);
+        int diaCambio = dia + limiteTemp;
         //menu dificultad
         System.out.println(" <-----dificultad----->");
         System.out.println("1.facil 2.normal 3.dificil");
@@ -55,27 +60,27 @@ public class Juegito {
                 break;
             default:
                 break;
-                
-                
+
             //juego
         }
         do {
+
             System.out.println("");
             System.out.println("");
 
-            System.out.println("                <------------------dia " + dia +"------------------>");
+            System.out.println("                <------------------dia " + dia + " nivel de temperatura: " + nivelTemperatura + " ------------------>");
             System.out.println("poblacion: " + poblacion + "   casas: " + casa + "     madera: " + madera + "      hierro: " + hierro + "      carbon: " + carbon);
             int sinTecho = poblacion - (10 * casa);
             if (sinTecho < 0) {
                 sinTecho = 0;
             }
             System.out.println("");
-            System.out.println("sin techo: " + sinTecho + "     descontento: " + descontento);
+            System.out.println("sin techo: " + sinTecho + "     descontento: " + descontento + "    cambio de temperatura previsto en el dia " + diaCambio);
             System.out.println("edificios de produccion: ");
             System.out.println("    aserradero: " + aserradero);
             System.out.println("    mina: " + mina);
             System.out.println("    fundicion: " + fundicion);
-            
+
             //acciones
             System.out.println("        <----------acciones---------->");
             System.out.println("1.construir     2.pasar dia     3.(futura accion)");
@@ -144,11 +149,29 @@ public class Juegito {
                         madera = madera + (aserradero * 10);
                         hierro = hierro + (fundicion * 5);
                         carbon = carbon + (mina * 20);
-                        
-                        
-                        
-                        
-                        
+
+                        //sistema de temperatura
+                        contadorTemperatura++;
+                        if (contadorTemperatura >= limiteTemp) {
+                            if (nivelTemperatura == 0) {
+                                nivelTemperatura++;
+                            } 
+                            else {
+                                int suerte = (int) (Math.random() * 2);
+                                
+                                if (suerte == 0) {
+                                    nivelTemperatura++;
+                                } else {
+                                    nivelTemperatura--;
+                                }
+                            }
+
+                            contadorTemperatura = 0;
+
+                            limiteTemp = 3 + (int) (Math.random() * 3);
+                            diaCambio = dia + limiteTemp;
+                        }
+
                         //sistema de descontento 
                         if (sinTecho > 0) {
                             descontento = descontento + ((sinTecho / 10) * 5);
