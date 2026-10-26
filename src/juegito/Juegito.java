@@ -92,8 +92,8 @@ public class Juegito {
                     resp = sc.nextInt();
                     switch (resp) {
                         case 1:
-                            if (madera >= 25) {
-                                madera = madera - 25;
+                            if (madera >= 10) {
+                                madera = madera - 10;
                                 casa++;
 
                             } else {
@@ -146,9 +146,10 @@ public class Juegito {
                     String pass = sc.nextLine();
                     if (pass.equalsIgnoreCase("y")) {
                         dia++;
-                        madera = madera + (aserradero * 10);
-                        hierro = hierro + (fundicion * 5);
-                        carbon = carbon + (mina * 20);
+                        carbon = carbon - (casa * (10 * nivelTemperatura)) + (mina * 50);
+                        madera = (madera + (aserradero * 10)) +5;
+                        hierro = (hierro + (fundicion * 5)) + 5;
+                        
 
                         //sistema de temperatura
                         contadorTemperatura++;
@@ -175,9 +176,15 @@ public class Juegito {
                         //sistema de descontento 
                         if (sinTecho > 0) {
                             descontento = descontento + ((sinTecho / 10) * 5);
-                        } else {
+                        }else {
                             descontento = descontento - 5;
                         }
+                        if (carbon <= 0 && nivelTemperatura != 0 ){
+                            descontento = descontento + (5 * casa);
+                        }
+                        
+                        
+                        
                         if (descontento < -1) {
                             descontento = 0;
                         }
