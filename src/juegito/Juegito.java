@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package juegito;
 
+import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -35,34 +32,71 @@ public class Juegito {
         int contadorTemperatura = 0;
         int limiteTemp = 3 + (int) (Math.random() * 3);
         int diaCambio = dia + limiteTemp;
-        //menu dificultad
-        System.out.println(" <-----dificultad----->");
-        System.out.println("1.facil 2.normal 3.dificil");
-        resp = sc.nextInt();
-        switch (resp) {
-            case 1:
-                madera = 75;
-                carbon = 100;
-                hierro = 70;
-                descontento = 25;
-                break;
-            case 2:
-                madera = 50;
-                carbon = 100;
-                hierro = 50;
-                descontento = 50;
-                break;
-            case 3:
-                madera = 25;
-                carbon = 0;
-                hierro = 20;
-                descontento = 75;
-                break;
-            default:
-                break;
 
-            //juego
+        boolean iniciarPartida = false;
+
+        //menu dificultad
+        while (!iniciarPartida) {
+            System.out.println("1.nueva partida     2.cargar partida");
+            resp = sc.nextInt();
+            if (resp == 1) {
+                System.out.println(" <-----dificultad----->");
+                System.out.println("1.facil 2.normal 3.dificil");
+                resp = sc.nextInt();
+                switch (resp) {
+                    case 1:
+                        madera = 75;
+                        carbon = 100;
+                        hierro = 70;
+                        descontento = 25;
+                        iniciarPartida = true;
+                        break;
+                    case 2:
+                        madera = 50;
+                        carbon = 100;
+                        hierro = 50;
+                        descontento = 50;
+                        iniciarPartida = true;
+                        break;
+                    case 3:
+                        madera = 25;
+                        carbon = 0;
+                        hierro = 20;
+                        descontento = 75;
+                        iniciarPartida = true;
+                        break;
+                    default:
+                        break;
+                }
+            } else if (resp == 2) {
+                File archivo = new File("save.txt");
+                if (!archivo.exists()) {
+                    System.out.println("No hay partida guardada");
+
+                } else {
+                    SavePoint save = SavePoint.cargar();
+
+                    casa = save.casa;
+                    poblacion = save.poblacion;
+                    madera = save.madera;
+                    carbon = save.carbon;
+                    hierro = save.hierro;
+                    aserradero = save.aserradero;
+                    mina = save.mina;
+                    fundicion = save.fundicion;
+                    descontento = save.descontento;
+                    dia = save.dia;
+                    nivelTemperatura = save.nivelTemperatura;
+                    contadorTemperatura = save.contadorTemperatura;
+                    limiteTemp = save.limiteTemp;
+                    diaCambio = save.diaCambio;
+                    iniciarPartida = true;
+
+                }
+            }
         }
+
+        //juego
         do {
 
             System.out.println("");
@@ -83,7 +117,7 @@ public class Juegito {
 
             //acciones
             System.out.println("        <----------acciones---------->");
-            System.out.println("1.construir     2.pasar dia     3.(futura accion)");
+            System.out.println("1.construir     2.pasar dia     3.guardar partida");
             resp = sc.nextInt();
 
             switch (resp) {
@@ -147,19 +181,17 @@ public class Juegito {
                     if (pass.equalsIgnoreCase("y")) {
                         dia++;
                         carbon = carbon - (casa * (10 * nivelTemperatura)) + (mina * 50);
-                        madera = (madera + (aserradero * 10)) +5;
+                        madera = (madera + (aserradero * 10)) + 5;
                         hierro = (hierro + (fundicion * 5)) + 5;
-                        
 
                         //sistema de temperatura
                         contadorTemperatura++;
                         if (contadorTemperatura >= limiteTemp) {
                             if (nivelTemperatura == 0) {
                                 nivelTemperatura++;
-                            } 
-                            else {
+                            } else {
                                 int suerte = (int) (Math.random() * 2);
-                                
+
                                 if (suerte == 0) {
                                     nivelTemperatura++;
                                 } else {
@@ -176,26 +208,26 @@ public class Juegito {
                         //sistema de descontento 
                         if (sinTecho > 0) {
                             descontento = descontento + ((sinTecho / 10) * 5);
-                        }else {
+                        } else {
                             descontento = descontento - 5;
                         }
-                        if (carbon <= 0 && nivelTemperatura != 0 ){
+                        if (carbon <= 0 && nivelTemperatura != 0) {
                             descontento = descontento + (5 * casa);
                         }
-                        
-                        
-                        
+
                         if (descontento < -1) {
                             descontento = 0;
                         }
                     }
                     break;
                 case 3:
-                    System.out.println("en desarrollo vuelve mas tarde");
+                    SavePoint.guardar(casa, poblacion, madera, carbon, hierro, aserradero, mina, fundicion, descontento, dia, nivelTemperatura, contadorTemperatura, limiteTemp, diaCambio);
+                    
                     break;
                 default:
                     break;
             }
         } while (descontento < 100);
+        System.out.println("la ciudad te ha expulsado");
     }
 }
