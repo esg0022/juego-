@@ -112,8 +112,8 @@ public class Juegito {
             System.out.println("sin techo: " + sinTecho + "     descontento: " + descontento + "    cambio de temperatura previsto en el dia " + diaCambio);
             System.out.println("edificios de produccion: ");
             System.out.println("    aserradero: " + aserradero);
-            System.out.println("    mina: " + mina);
             System.out.println("    fundicion: " + fundicion);
+            System.out.println("    mina: " + mina);
 
             //acciones
             System.out.println("        <----------acciones---------->");
